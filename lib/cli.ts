@@ -90,9 +90,9 @@ function processFile(
   }
 
   // Add export to index.ts
-  console.log("output", outputPath);
-  console.log("import {", filenameWithoutAnyExtensions, "} from", "../types");
-  console.log("hello!");
+  console.log(blue("output", outputPath));
+  // tslint:disable-next-line
+  console.log(blue("import {", filenameWithoutAnyExtensions, "} from", "../types"));
 
   const typescriptSourceFile = generateSource(rawAbi, {
     fileName: filenameWithoutAnyExtensions,
