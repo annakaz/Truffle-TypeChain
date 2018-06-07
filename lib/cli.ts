@@ -73,6 +73,7 @@ function processFile(
   const runtimeRelativePath = getRelativeModulePath(outputDir, runtimeAbsPath);
   // tslint:disable-next-line
   console.log(blue(`${relativeInputPath} => ${relativeOutputPath}`));
+
   if (pathExistsSync(outputPath) && !forceOverwrite) {
     // tslint:disable-next-line
     console.log(red("File exists, skipping"));
@@ -93,6 +94,10 @@ function processFile(
     relativeRuntimePath: runtimeRelativePath,
   });
   writeFileSync(outputPath, prettier.format(typescriptSourceFile, prettierConfig));
+
+  // Add export to index.ts
+  console.log("output", outputPath);
+  console.log("import {", filenameWithoutAnyExtensions, "} from", "../types");
 }
 
 function getFilenameWithoutAnyExtensions(filePath: string): string {
