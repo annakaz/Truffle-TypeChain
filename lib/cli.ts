@@ -67,7 +67,7 @@ function processFile(
   const parsedInputPath = parse(absPath);
   const filenameWithoutAnyExtensions = getFilenameWithoutAnyExtensions(parsedInputPath.name);
   const outputDir = fixedOutputDir || parsedInputPath.dir;
-  const outputPath = join(outputDir, filenameWithoutAnyExtensions + ".ts");
+  const outputPath = join(outputDir, filenameWithoutAnyExtensions + ".d.ts");
   const relativeOutputPath = relative(cwd, outputPath);
 
   const runtimeRelativePath = getRelativeModulePath(outputDir, runtimeAbsPath);

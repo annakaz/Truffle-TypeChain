@@ -44,7 +44,7 @@ export class ${typeName} extends TypeChainContract {
     ${input.constants
       .map(
         constant =>
-          `public get ${
+          `public ${
             constant.name
           }(): Promise<${constant.output.generateCodeForOutput()}> { return promisify(this.rawWeb3Contract.${
             constant.name
@@ -67,7 +67,7 @@ export class ${typeName} extends TypeChainContract {
         ${input.functions
           .map(func => {
             const txParamsType = func.payable ? "IPayableTxParams" : "ITxParams";
-            return `public ${func.name}Tx(${func.inputs
+            return `public ${func.name}(${func.inputs
               .map(codeGenForParams)
               .join(
                 ", ",
