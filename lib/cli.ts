@@ -54,6 +54,9 @@ async function main() {
       options.outDir,
     ),
   );
+
+  console.log("hello");
+  writeFileSync("testIndex.js", "some content");
 }
 
 function processFile(
@@ -88,11 +91,6 @@ function processFile(
     console.log(yellow("ABI is empty, skipping"));
     return;
   }
-
-  // Add export to index.ts
-  console.log(blue("output", outputPath));
-  // tslint:disable-next-line
-  console.log(blue("import {", filenameWithoutAnyExtensions, "} from", "../types"));
 
   const typescriptSourceFile = generateSource(rawAbi, {
     fileName: filenameWithoutAnyExtensions,

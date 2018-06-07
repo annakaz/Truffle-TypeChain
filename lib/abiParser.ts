@@ -55,8 +55,6 @@ export function parse(abi: Array<RawAbiDefinition>): Contract {
   const constantFunctions: Array<ConstantFunctionDeclaration> = [];
   const functions: Array<FunctionDeclaration> = [];
 
-  console.log("hello");
-
   abi.forEach(abiPiece => {
     // @todo implement missing abi pieces
     // skip constructors for now
