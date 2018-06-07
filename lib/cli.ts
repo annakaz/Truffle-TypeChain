@@ -89,15 +89,16 @@ function processFile(
     return;
   }
 
+  // Add export to index.ts
+  console.log("output", outputPath);
+  console.log("import {", filenameWithoutAnyExtensions, "} from", "../types");
+  console.log("hello!");
+
   const typescriptSourceFile = generateSource(rawAbi, {
     fileName: filenameWithoutAnyExtensions,
     relativeRuntimePath: runtimeRelativePath,
   });
   writeFileSync(outputPath, prettier.format(typescriptSourceFile, prettierConfig));
-
-  // Add export to index.ts
-  console.log("output", outputPath);
-  console.log("import {", filenameWithoutAnyExtensions, "} from", "../types");
 }
 
 function getFilenameWithoutAnyExtensions(filePath: string): string {
