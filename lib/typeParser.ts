@@ -100,6 +100,16 @@ export class ArrayType extends EvmType {
   }
 }
 
+export class TupleType extends EvmType {
+  generateCodeForOutput(): string {
+    return "any";
+  }
+
+  generateCodeForInput(): string {
+    return "any";
+  }
+}
+
 const isUIntTypeRegex = /^uint([0-9]*)$/;
 const isIntTypeRegex = /^int([0-9]*)$/;
 const isBytesTypeRegex = /^bytes([0-9]+)$/;
@@ -136,6 +146,8 @@ export function parseEvmType(rawType: string): EvmType {
       return new BytesType(1);
     case "bytes":
       return new ArrayType(new BytesType(1));
+    case "tuple":
+      return new TupleType();
   }
 
   if (isUIntTypeRegex.test(rawType)) {
