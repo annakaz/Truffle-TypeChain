@@ -54,9 +54,6 @@ async function main() {
       options.outDir,
     ),
   );
-
-  console.log("hello");
-  writeFileSync("testIndex.js", "some content");
 }
 
 function processFile(

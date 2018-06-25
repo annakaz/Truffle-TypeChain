@@ -47,6 +47,7 @@ function main() {
         console.log(blue(`${runtimeFilename} => ${runtimePath}`));
         // generate wrappers
         matches.forEach(p => processFile(p, options.force, runtimePath, Object.assign({}, (prettierConfig || {}), { parser: "typescript" }), options.outDir));
+
     });
 }
 function processFile(absPath, forceOverwrite, runtimeAbsPath, prettierConfig, fixedOutputDir) {
