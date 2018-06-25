@@ -6,6 +6,7 @@ import { pathExistsSync } from "fs-extra";
 import * as glob from "glob";
 import * as prettier from "prettier";
 
+import { generateExports } from "./generateExports";
 import { generateSource } from "./generateSource";
 import { parseArgs } from "./parseArgs";
 import { copyRuntime } from "./copyRuntime";
@@ -13,6 +14,9 @@ import { extractAbi } from "./abiParser";
 
 const { blue, red, green, yellow } = chalk;
 const cwd = process.cwd();
+
+const buildFolder = "../types/typechain";
+const exportFile = "../types/contracts.ts";
 
 async function main() {
   const options = parseArgs();
@@ -54,6 +58,9 @@ async function main() {
       options.outDir,
     ),
   );
+
+  // Write exports file
+  await generateExports(buildFolder, exportFile);
 }
 
 function processFile(
