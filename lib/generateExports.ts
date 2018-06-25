@@ -5,6 +5,7 @@ const appendFile = promisify(fs.appendFile);
 export async function generateExports(exportFile: string, buildFolder: string) {
   fs.writeFile(exportFile, "");
   fs.readdir(buildFolder, async (err: Error, files: string[]) => {
+    console.log("Reading files...", files);
     await Promise.all(
       files.map(async file => {
         const contractName = file.replace(".d.ts", "");
