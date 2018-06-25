@@ -2,20 +2,24 @@ const fs = require("fs");
 const { promisify } = require("util");
 const appendFile = promisify(fs.appendFile);
 
-export async function generateExports(exportFile: string, buildFolder: string) {
+async function generateExports(exportFile: string, buildFolder: string) {
   fs.writeFile(exportFile, "");
   fs.readdir(buildFolder, async (err: Error, files: string[]) => {
-    console.log("Reading files...", files);
-    await Promise.all(
-      files.map(async file => {
-        const contractName = file.replace(".d.ts", "");
+    const contractFiles = files.filter(file => {
+      return file.substr(file.length - 5) === ".d.ts";
+    });
 
-        await appendFile(
-          exportFile,
-          `export { ${contractName} } from './typechain/${contractName}`,
-        );
+    const contractNames = contractFiles.map(function(file) {
+      return file.replace(".d.ts", "");
+    });
+
+    await Promise.all(
+      contractNames.map(async name => {
+        await appendFile(exportFile, `import { ${name} } from './typechain/${name}' \n`);
       }),
     );
-    await appendFile(exportFile, `export { ${files.join(", ")} }`);
+    await appendFile(exportFile, `\n export { ${contractNames.join(", ")} }`);
   });
 }
+
+generateExports("./contracts.ts", "./typechain/");
