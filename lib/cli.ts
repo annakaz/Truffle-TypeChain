@@ -57,6 +57,7 @@ async function main() {
   );
 
   // Write exports file
+  console.log(options.outDir || dirname(matches[0]), options.outDir + "/contracts.ts");
   await generateExports(options.outDir || dirname(matches[0]), options.outDir + "/contracts.ts");
 }
 
