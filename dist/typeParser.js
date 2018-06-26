@@ -97,6 +97,15 @@ class ArrayType extends EvmType {
     }
 }
 exports.ArrayType = ArrayType;
+class TupleType extends EvmType {
+    generateCodeForOutput() {
+        return "any";
+    }
+    generateCodeForInput() {
+        return "any";
+    }
+}
+exports.TupleType = TupleType;
 const isUIntTypeRegex = /^uint([0-9]*)$/;
 const isIntTypeRegex = /^int([0-9]*)$/;
 const isBytesTypeRegex = /^bytes([0-9]+)$/;
@@ -126,6 +135,8 @@ function parseEvmType(rawType) {
             return new BytesType(1);
         case "bytes":
             return new ArrayType(new BytesType(1));
+        case "tuple":
+            return new TupleType();
     }
     if (isUIntTypeRegex.test(rawType)) {
         const match = isUIntTypeRegex.exec(rawType);
@@ -139,6 +150,6 @@ function parseEvmType(rawType) {
         const match = isBytesTypeRegex.exec(rawType);
         return new BytesType(parseInt(match[1] || "1"));
     }
-    throw new Error("Unknown type: " + rawType);
+    throw new Error("Unknown type blah: " + rawType);
 }
 exports.parseEvmType = parseEvmType;
