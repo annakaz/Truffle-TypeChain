@@ -15,9 +15,6 @@ import { extractAbi } from "./abiParser";
 const { blue, red, green, yellow } = chalk;
 const cwd = process.cwd();
 
-const buildFolder = "../types/typechain";
-const exportFile = "../types/contracts.ts";
-
 async function main() {
   const options = parseArgs();
 
@@ -60,7 +57,7 @@ async function main() {
   );
 
   // Write exports file
-  await generateExports(buildFolder, exportFile);
+  await generateExports(options.outDir || dirname(matches[0]), options.outDir + "/contracts.ts");
 }
 
 function processFile(

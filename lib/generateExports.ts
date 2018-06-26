@@ -22,4 +22,4 @@ async function generateExports(exportFile: string, buildFolder: string) {
   });
 }
 
-generateExports("./contracts.ts", "./typechain/");
+export { generateExports };
