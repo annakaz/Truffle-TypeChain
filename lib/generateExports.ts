@@ -18,7 +18,7 @@ async function generateExports(exportFile: string, buildFolder: string) {
         await appendFile(exportFile, `import { ${name} } from './typechain/${name}' \n`);
       }),
     );
-    await appendFile(exportFile, `\n export { ${contractNames.join(", \n")} }`);
+    await appendFile(exportFile, `\nexport { ${contractNames.join(", \n  ")} }`);
   });
 }
 
