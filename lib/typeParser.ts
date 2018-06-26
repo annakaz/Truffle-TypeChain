@@ -165,5 +165,5 @@ export function parseEvmType(rawType: string): EvmType {
     return new BytesType(parseInt(match![1] || "1"));
   }
 
-  throw new Error("Unknown type: " + rawType);
+  throw new Error("Unknown type blah: " + rawType);
 }
