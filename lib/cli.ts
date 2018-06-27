@@ -2,7 +2,7 @@
 import { readFileSync, writeFileSync } from "fs";
 import chalk from "chalk";
 import { join, dirname, parse, relative } from "path";
-import { pathExistsSync } from "fs-extra";
+import { copySync, pathExistsSync } from "fs-extra";
 import * as glob from "glob";
 import * as prettier from "prettier";
 
@@ -42,6 +42,7 @@ async function main() {
   const runtimeFilename = "typechain-runtime.ts";
   const runtimePath = join(options.outDir || dirname(matches[0]), runtimeFilename);
   copyRuntime(runtimePath);
+
   // tslint:disable-next-line
   console.log(blue(`${runtimeFilename} => ${runtimePath}`));
 
@@ -57,8 +58,13 @@ async function main() {
   );
 
   // Write exports file
-  console.log(options.outDir || dirname(matches[0]), options.outDir + "/contracts.ts");
-  await generateExports(options.outDir || dirname(matches[0]), options.outDir + "/contracts.ts");
+  const typesFolder = options.outDir || dirname(matches[0]);
+  const exportFilename = "contracts.ts";
+
+  const relativeExportPath = relative(cwd, join(typesFolder, exportFilename));
+  const relativeTypesPath = relative(cwd, typesFolder);
+
+  await generateExports(relativeExportPath, relativeTypesPath);
 }
 
 function processFile(
